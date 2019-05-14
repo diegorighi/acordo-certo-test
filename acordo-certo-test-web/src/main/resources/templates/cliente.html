@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Cadastro de cliente</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container">
+		<span><h1>Cadastre um Cliente</h1></span>
+		<div class="row">
+			<div class="col-4">
+				<form id="cliente_form" th:action="@{/cliente/cadastrar}"
+					method="POST">
+					<div class="form-group">
+						<input class="form-control" type="text" name="email" id="email" placeholder="E-Mail" />
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="text" name="nome" id="primeiroNome"
+							placeholder="Nome" />
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="text" name="sobrenome" 
+							id="sobrenome" placeholder="Sobrenome" />
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="datetime" name="dataNascimento" id="dataNascimento" />
+					</div>
+					<div class="form-group">
+						<select class="form-control" id="roles" name="roles" >
+						    <option value="">Atribua um perfil</option>
+						    <option th:each="role : ${roles}" 
+						    		th:value="${role.roleName}" 
+						    		th:utext="${role.roleName}" 
+						    		th:selected="${role.roleName}">
+						    </option>
+						</select>
+					</div>
+					<div class="form-group">
+						<input class="form-check-input" type="checkbox" name="active"/> <label class="form-check-label" for="defaultCheck1">
+Enviar ativação por e-mail?
+  </label>
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Salvar
+						Thymeleafe</button>
+				</form>
+			</div>
+		</div>
+
+		<br /> <span><h1>Lista de Clientes</h1></span>
+
+		<div class="row">
+			<div id="listaDeClientes">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>E-mail</th>
+							<th>Data de Nascimento</th>
+							<th>Perfil</th>
+							<th>Ativo</th>
+						</tr>
+					</thead>
+
+					<tr th:each="cliente : ${clientes}">
+						<td><span th:text="${cliente.primeiroNome}"></span></td>
+						<td><span th:text="${cliente.email}"></span></td>
+						<td><span th:text="${cliente.dataNascimento}"></span></td>
+						<td><span th:text="${cliente.perfil}"></span></td>
+						<td><span th:text="${cliente.status}"></span></td>
+					</tr>
+				</table>
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+	
+</body>
+</html>
